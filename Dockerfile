@@ -1,9 +1,4 @@
 FROM nginx
-MAINTAINER Elliot Saba <staticfloat@gmail.com>
-
-VOLUME /etc/letsencrypt
-EXPOSE 80
-EXPOSE 443
 
 # Do this apt/pip stuff all in one RUN command to avoid creating large
 # intermediate layers on non-squashable docker installs

@@ -14,17 +14,10 @@ auto_enable_configs
 nginx -g "daemon off;" &
 export NGINX_PID=$!
 
-# Next, run certbot to request all the ssl certs we can find
-/scripts/run_certbot.sh
-
-# Lastly, run startup scripts
-for f in /scripts/startup/*.sh; do
-    if [[ -x "$f" ]]; then
-        echo "Running startup script $f"
-        $f
-    fi
-done
-echo "Done with startup"
+if [[ ! -f /etc/letsencrypt/live/*/fullchain.pem ]]; then
+	# Next, run certbot to request all the ssl certs we can find
+	/scripts/run_certbot.sh
+fi
 
 # Instead of trying to run `cron` or something like that, just leep and run `certbot`.
 while [ true ]; do
