@@ -14,7 +14,8 @@ auto_enable_configs
 nginx -g "daemon off;" &
 export NGINX_PID=$!
 
-if [[ ! -f /etc/letsencrypt/live/*/fullchain.pem ]]; then
+if ! compgen -G "/etc/letsencrypt/live/*/fullchain.pem" > /dev/null; then
+    echo 'could not find certificate'
 	# Next, run certbot to request all the ssl certs we can find
 	/scripts/run_certbot.sh
 fi
