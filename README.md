@@ -43,10 +43,18 @@ services:
             - 443:443/tcp
         environment:
             - CERTBOT_EMAIL=owner@company.com
+	volumes:
+	    - certificates:/etc/letsencrypt
+
+volumes:
+    certificates:
   ...
 ```
 
 # Changelog
+
+### 0.9
+Remove volumes, stop exposing ports and check for existing certificates before calling certbot.
 
 ### 0.8
 - Ditch cron, it never liked me anway.  Just use `sleep` and a `while` loop instead.
